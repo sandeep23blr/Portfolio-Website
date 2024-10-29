@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the VM credentials
-        SSH_CREDENTIALS = credentials('your-ssh-credentials-id') // Add your Jenkins SSH credentials ID
+        SSH_CREDENTIALS = credentials('SSHtoken') // Add your Jenkins SSH credentials ID
         SECOND_VM_IP = '3.110.153.6' // Replace with the actual IP address of the second VM
         DEPLOY_PATH = '/path/to/deploy/directory' // Path on the second VM where the application should be deployed
     }
