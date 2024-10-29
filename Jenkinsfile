@@ -11,7 +11,6 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                // Clone the GitHub repository explicitly specifying the branch to avoid issues
                 script {
                     // Ensure Git is properly configured
                     if (!fileExists('.git')) {
@@ -35,16 +34,16 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                // Build the application, adjust the command based on your build tool
                 echo 'Building application...'
-                sh './gradlew build' // Replace with the appropriate build command
+                // Adjust the path to the gradlew script if necessary
+                sh 'chmod +x ./gradlew' // Make sure the script is executable
+                sh './gradlew build' // Use the correct path if gradlew is in a subdirectory
             }
         }
 
         stage('Deploy Application') {
             steps {
-                // Copy built artifacts to the second VM
-                sshagent(['SSHtoken']) { // Use your defined SSH credentials ID
+                sshagent(['SSHtoken']) {
                     echo 'Deploying application to the second VM...'
                     sh """
                         scp -o StrictHostKeyChecking=no -r build/libs/*.jar ${SECOND_VM_IP}:${DEPLOY_PATH}
